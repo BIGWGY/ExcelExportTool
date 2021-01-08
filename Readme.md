@@ -52,13 +52,10 @@
 
 4. 枚举名为导出的 `cs` 枚举类名，驼峰写法。
 
-   | Battle           | 值   | 战斗时单位属性   |
+   | ActivityType#byte     | 值   | 注释             |
    | ---------------- | ---- | ---------------- |
-   | HpMaxBase        | 1    | 最大生命基础值   |
-   | HpMaxReviseLord  | 2    | 最大生命领主加成 |
-   | HpMaxReviseSpell | 3    | 最大生命状态加成 |
-   | AttackBase       | 4    | 普通攻击基础值   |
-   | AttackLord       | 5    | 普通攻击领主加成 |
+   | GreenHandler     | 1    | 新手活动     |
+   | Plan             | 2    | 计划       |
 
 # 表格约束(Setting)
 
