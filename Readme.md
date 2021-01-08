@@ -108,4 +108,4 @@
 # CS表文件配置
 
 1. `StaticDataLoader` 的变量  `_byteDataPath` ，指定二进制文件的加载路径。
-2. 将工程目录下的 `template` 目录拷贝到程序执行的同一级目录。
+2. 将工程目录下的 `excel/template` 目录拷贝到程序执行的同一级目录。
