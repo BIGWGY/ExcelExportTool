@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ikvm.extensions;
 using Microsoft.Extensions.Logging;
 
 namespace ExcelTool
@@ -13,7 +14,8 @@ namespace ExcelTool
         private ExcelContext _excelContext = new ExcelContext();
 
         private const string IniSectionName = "ExcelTool";
-        
+
+        private const string IniNameOfCsCodeNamespace = "CsCodeNamespace";
         private const string IniNameOfExcelDataDirectory = "ExcelDataDirectory";
         private const string IniNameOfJsonOutputDataDirectory = "JsonOutputDataDirectory";
         private const string IniNameOfBinaryOutputDataDirectory = "BinaryOutputDataDirectory";
@@ -29,6 +31,21 @@ namespace ExcelTool
             _excelContext.logMsgHandler += WriteLog;
         }
 
+        /// <summary>
+        /// 设置导出的cs代码的命名空间.
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetCsCodeNamespace(string value, string defaultValue = "TestCode")
+        {
+            if (value.Equals(""))
+            {
+                value = defaultValue;
+            }
+            CsNamespaceEdit.Text = value;
+            _excelContext.ChsarpCodeNameSpace = value;
+            _iniFile.IniWriteValue(IniSectionName, IniNameOfCsCodeNamespace, value);   
+        }
+        
         /// <summary>
         /// 设置excel路径。
         /// </summary>
@@ -145,13 +162,14 @@ namespace ExcelTool
         
         private void InitConfig()
         {
+            SetCsCodeNamespace(_iniFile.IniReadValue(IniSectionName, IniNameOfCsCodeNamespace, _excelContext.ChsarpCodeNameSpace));
             SetExcelDataDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfExcelDataDirectory, _excelContext.ExcelDataDirectory));
             SetBinaryOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfBinaryOutputDataDirectory, _excelContext.ClientDataOutDirectory));
             SetJsonOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfJsonOutputDataDirectory, _excelContext.ServerDataOutDirectory));
             SetCsEnumCodeOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfCsEnumCodeOutputDirectory, _excelContext.CsharpEnumCodeOutDirectory));
             SetCsTableCodeOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfCsTableCodeOutputDirectory, _excelContext.CsharpTableCodeOutDirectory));
         }
-        
+
         /// <summary>
         /// 选择文件夹。
         /// </summary>
@@ -182,6 +200,7 @@ namespace ExcelTool
             
             return path;
         }
+
 
         /// <summary>
         /// 选择数据表文件夹。
@@ -461,6 +480,11 @@ namespace ExcelTool
         private void FilterExcelButton_Click(object sender, EventArgs e)
         {
             SetExcelDataDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfExcelDataDirectory, _excelContext.ExcelDataDirectory));
+        }
+
+        private void CsCodeNamespace_TextChanged(object sender, EventArgs e)
+        {
+            SetCsCodeNamespace(CsNamespaceEdit.Text);
         }
     }
 }

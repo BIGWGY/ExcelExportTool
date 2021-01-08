@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using ExcelTool;
 
-namespace DyspaceWork
+namespace __NAMESPACE__
 {
     public class StaticDataLoader<T> where T: DataRow
     {
-        private const string _byteDataPath = @"I:\Job\ExcelOutput\ExcelOutput\bin\Debug\client";
+        private static string _byteDataPath = @"I:\Job\ExcelOutput\ExcelOutput\bin\Debug\client";
         // private static string _byteDataPath = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "example";
 
         /// <summary>

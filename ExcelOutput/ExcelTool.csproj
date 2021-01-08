@@ -311,12 +311,7 @@
     <Compile Include="excel\loader\ExcelTableLoader.cs" />
     <Compile Include="excel\StringUtils.cs" />
     <Compile Include="excel\TableConstraint.cs" />
-    <Compile Include="excel\table\StaticActivity.cs" />
-    <Compile Include="excel\table\StaticVipTemplate.cs" />
     <Compile Include="excel\task\LimitedTaskScheduler.cs" />
-    <Compile Include="excel\template\DataRow.cs" />
-    <Compile Include="excel\template\IDataRow.cs" />
-    <Compile Include="excel\template\StaticDataLoader.cs" />
     <Compile Include="excel\type\ColumnBelong.cs" />
     <Compile Include="excel\type\ColumnType.cs" />
     <Compile Include="excel\type\ConstraintType.cs" />
@@ -381,6 +376,10 @@
     <Content Include="example\static_activity.byte" />
     <Content Include="example\static_activity.xlsx" />
     <Content Include="example\枚举清单.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="excel\autocode" />
+    <Folder Include="excel\template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

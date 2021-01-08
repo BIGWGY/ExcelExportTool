@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using java.awt;
+using ikvm.extensions;
 using Microsoft.Extensions.Logging;
 
 namespace ExcelTool
@@ -167,6 +168,44 @@ namespace ExcelTool
                 );
             }
             Task.WaitAll(tasks.ToArray());
+            
+            CopyTemplateCode();
+        }
+
+        /// <summary>
+        /// 拷贝模版
+        /// </summary>
+        private void CopyTemplateCode()
+        {
+            List<FileInfo> fileInfos = FilterFile(Environment.CurrentDirectory + Path.DirectorySeparatorChar + "template", ".cs");
+            foreach (var csFile in fileInfos)
+            {
+                ReplaceAndCopyFile(csFile.FullName, _csharpTableCodeOutDirectory, "__NAMESPACE__", _chsarpCodeNameSpace);
+            }
+        }
+        
+        /// <summary>
+        /// 替换文件指定字符串。
+        /// </summary>
+        /// <param name="srcFilePath"></param>
+        /// <param name="dstDirectory"></param>
+        /// <param name="search"></param>
+        /// <param name="replace"></param>
+        public static void ReplaceAndCopyFile(string srcFilePath, string dstDirectory, string search, string replace)
+        {
+            if (!File.Exists(srcFilePath) || !Directory.Exists(dstDirectory))
+            {
+                return;
+            }
+
+            string filename = Path.GetFileName(srcFilePath);
+            
+            using (StreamReader reader = new StreamReader(srcFilePath, Encoding.UTF8))
+            using (StreamWriter writer = new StreamWriter(dstDirectory + Path.DirectorySeparatorChar + filename, false, Encoding.UTF8))
+            {
+                string content = reader.ReadToEnd().replaceAll(search, replace);
+                writer.Write(content);
+            }    
         }
     }
 }

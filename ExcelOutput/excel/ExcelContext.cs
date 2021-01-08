@@ -144,6 +144,12 @@ namespace ExcelTool
             set => _csharpEnumCodeOutDirectory = value;
         }
 
+        public string ChsarpCodeNameSpace
+        {
+            get => _chsarpCodeNameSpace;
+            set => _chsarpCodeNameSpace = value;
+        }
+
         /// <summary>
         /// 检查数据目录。
         /// </summary>

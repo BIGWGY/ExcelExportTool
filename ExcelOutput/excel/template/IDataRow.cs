@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace DyspaceWork
+namespace __NAMESPACE__
 {
     public interface IDataRow
     {

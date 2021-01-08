@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DyspaceWork
+namespace __NAMESPACE__
 {
     public abstract class DataRow: IDataRow
     {

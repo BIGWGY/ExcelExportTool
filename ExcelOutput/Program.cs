@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using DyspaceWork;
-using Newtonsoft.Json;
 
 namespace ExcelTool
 {
@@ -22,8 +19,7 @@ namespace ExcelTool
 
         static void TestCsByteLoad()
         {
-            List<StaticVipTemplate> all = StaticDataLoader<StaticVipTemplate>.GetList();
-            Console.WriteLine(JsonConvert.SerializeObject(all));
+            // Console.WriteLine(JsonConvert.SerializeObject(all));
         }
     }
 }

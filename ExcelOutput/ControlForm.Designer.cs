@@ -47,6 +47,8 @@
 	        this.JsonCheckBox = new System.Windows.Forms.CheckBox();
 	        this.button2 = new System.Windows.Forms.Button();
 	        this.groupBox2 = new System.Windows.Forms.GroupBox();
+	        this.AutoCodeNamespace = new System.Windows.Forms.Label();
+	        this.CsNamespaceEdit = new System.Windows.Forms.TextBox();
 	        this.button3 = new System.Windows.Forms.Button();
 	        this.ExportTableCodeCheckBox = new System.Windows.Forms.CheckBox();
 	        this.CsTableCodeOutputPath = new System.Windows.Forms.TextBox();
@@ -227,6 +229,8 @@
 	        // 
 	        // groupBox2
 	        // 
+	        this.groupBox2.Controls.Add(this.AutoCodeNamespace);
+	        this.groupBox2.Controls.Add(this.CsNamespaceEdit);
 	        this.groupBox2.Controls.Add(this.button3);
 	        this.groupBox2.Controls.Add(this.ExportTableCodeCheckBox);
 	        this.groupBox2.Controls.Add(this.CsTableCodeOutputPath);
@@ -246,6 +250,22 @@
 	        this.groupBox2.TabStop = false;
 	        this.groupBox2.Text = "导出选项";
 	        this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+	        // 
+	        // AutoCodeNamespace
+	        // 
+	        this.AutoCodeNamespace.Location = new System.Drawing.Point(6, 166);
+	        this.AutoCodeNamespace.Name = "AutoCodeNamespace";
+	        this.AutoCodeNamespace.Size = new System.Drawing.Size(84, 21);
+	        this.AutoCodeNamespace.TabIndex = 45;
+	        this.AutoCodeNamespace.Text = "CS的命名空间";
+	        // 
+	        // CsNamespaceEdit
+	        // 
+	        this.CsNamespaceEdit.Location = new System.Drawing.Point(108, 163);
+	        this.CsNamespaceEdit.Name = "CsNamespaceEdit";
+	        this.CsNamespaceEdit.Size = new System.Drawing.Size(218, 21);
+	        this.CsNamespaceEdit.TabIndex = 44;
+	        this.CsNamespaceEdit.TextChanged += new System.EventHandler(this.CsCodeNamespace_TextChanged);
 	        // 
 	        // button3
 	        // 
@@ -356,12 +376,14 @@
 	        this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Label AutoCodeNamespace;
         private System.Windows.Forms.CheckBox BinaryCheckBox;
         private System.Windows.Forms.TextBox BinaryOutPath;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox CsEnumCodeOutputPath;
+        private System.Windows.Forms.TextBox CsNamespaceEdit;
         private System.Windows.Forms.TextBox CsTableCodeOutputPath;
         private System.Windows.Forms.TextBox ExcelFilterTextBox;
         private System.Windows.Forms.Label ExcelPathText;

@@ -68,7 +68,7 @@ namespace ExcelTool
         public static List<FileInfo> FilterFile(string directory, string extension)
         {
             DirectoryInfo di = new DirectoryInfo(directory);
-            return di.GetFiles().Where(f => f.Name.EndsWith(ExcelSuffix)).ToList();
+            return di.GetFiles().Where(f => f.Name.EndsWith(extension)).ToList();
         }
 
         /// <summary>
