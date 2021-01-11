@@ -377,8 +377,8 @@
     <Content Include="example\枚举清单.xlsx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="excel\autocode" />
-    <Folder Include="excel\template" />
+    <Folder Include="autocode" />
+    <Folder Include="template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -67,6 +67,10 @@ namespace ExcelTool
 
         public static List<FileInfo> FilterFile(string directory, string extension)
         {
+            if (!Directory.Exists(directory))
+            {
+                return new List<FileInfo>();
+            }
             DirectoryInfo di = new DirectoryInfo(directory);
             return di.GetFiles().Where(f => f.Name.EndsWith(extension)).ToList();
         }
