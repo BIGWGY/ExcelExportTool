@@ -279,6 +279,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="autocode\DataRow.cs" />
+    <Compile Include="autocode\IDataRow.cs" />
+    <Compile Include="autocode\StaticActivity.cs" />
+    <Compile Include="autocode\StaticActivityGift.cs" />
     <Compile Include="excel\ColumnInfo.cs" />
     <Compile Include="excel\columns\IntArrayColumnParser.cs" />
     <Compile Include="excel\columns\ByteColumnParser.cs" />
@@ -377,7 +381,6 @@
     <Content Include="example\枚举清单.xlsx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="autocode" />
     <Folder Include="template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

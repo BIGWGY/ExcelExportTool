@@ -11,6 +11,8 @@ namespace ExcelTool
         [STAThread]
         static void Main(string[] args)
         {
+            // TestCsByteLoad();
+            // return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Control.CheckForIllegalCrossThreadCalls = false;

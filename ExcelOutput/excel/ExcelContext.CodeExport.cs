@@ -188,7 +188,7 @@ namespace ExcelTool
         /// 替换文件指定字符串。
         /// </summary>
         /// <param name="srcFilePath"></param>
-        /// <param name="dstDirectory"></param>
+        /// <param name="dstDirectory"></param>测试代码导出完成
         /// <param name="search"></param>
         /// <param name="replace"></param>
         public static void ReplaceAndCopyFile(string srcFilePath, string dstDirectory, string search, string replace)

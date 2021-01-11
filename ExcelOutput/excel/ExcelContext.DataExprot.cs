@@ -142,31 +142,38 @@ namespace ExcelTool
             ExcelDataTable dataTable = _excelDataTables[dataFileName];
             List<ColumnInfo> columnInfos = dataTable.GetColumnInfos(columnBelong);
 
-            using (FileStream writeFile = new FileStream(GetBinaryExportFileName(dataTable), FileMode.Create))
-            using (BinaryWriter binaryWriter = new BinaryWriter(writeFile, Encoding.UTF8))
+            try
             {
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                for (int i = 0; i < dataTable.DataRowCount; i++)
+                using (FileStream writeFile = new FileStream(GetBinaryExportFileName(dataTable), FileMode.Create))
+                using (BinaryWriter binaryWriter = new BinaryWriter(writeFile, Encoding.UTF8))
                 {
-                    foreach (var columnInfo in columnInfos)
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    for (int i = 0; i < dataTable.DataRowCount; i++)
                     {
-                        try
+                        foreach (var columnInfo in columnInfos)
                         {
-                            IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
-                            parser.WriteToBinaryWriter(binaryWriter, columnInfo.GetRowValue(i));
-                        }
-                        catch (Exception e)
-                        {
-                            WriteLog(LogLevel.Error,
-                                $"表格 {dataTable.DataFileName} {columnInfo.Name} 字段, {i + 5} 行, 值 {columnInfo.GetRowValue(i)}, 导出失败: {e.Message}");
-                            return;
+                            try
+                            {
+                                IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
+                                parser.WriteToBinaryWriter(binaryWriter, columnInfo.GetRowValue(i));
+                            }
+                            catch (Exception e)
+                            {
+                                WriteLog(LogLevel.Error,
+                                    $"表格 {dataTable.DataFileName} {columnInfo.Name} 字段, {i + 5} 行, 值 {columnInfo.GetRowValue(i)}, 导出失败: {e.Message}");
+                                throw e;
+                            }
                         }
                     }
-                }
 
-                stopwatch.Stop();
-                WriteLog(LogLevel.Information,
-                    $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 byte 文件: {dataFileName}");
+                    stopwatch.Stop();
+                    WriteLog(LogLevel.Information,
+                        $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 byte 文件: {dataFileName}");
+                }
+            }
+            catch (Exception e)
+            {
+                File.Delete(GetBinaryExportFileName(dataTable));
             }
         }
     }

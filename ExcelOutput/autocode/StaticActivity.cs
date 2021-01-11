@@ -1,5 +1,7 @@
-﻿﻿using System;
+﻿using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace DyspaceWork
 {
@@ -42,19 +44,19 @@ namespace DyspaceWork
             private set;
         }
         /// <summary> 活动名 </summary>
-        public int name
+        public Int32 name
         {
             get;
             private set;
         }
         /// <summary> 标题 </summary>
-        public int title
+        public Int32 title
         {
             get;
             private set;
         }
         /// <summary> 描述 </summary>
-        public int describe
+        public Int32 describe
         {
             get;
             private set;
