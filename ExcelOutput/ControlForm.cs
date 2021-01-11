@@ -15,6 +15,8 @@ namespace ExcelTool
 
         private const string IniSectionName = "ExcelTool";
 
+
+        private const string IniNameOfEnumDirectory = "EnumDirectory";
         private const string IniNameOfCsCodeNamespace = "CsCodeNamespace";
         private const string IniNameOfExcelDataDirectory = "ExcelDataDirectory";
         private const string IniNameOfJsonOutputDataDirectory = "JsonOutputDataDirectory";
@@ -31,6 +33,23 @@ namespace ExcelTool
             _excelContext.logMsgHandler += WriteLog;
         }
 
+        /// <summary>
+        /// 设置枚举目录
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        private void SetEnumDirectory(string value)
+        {
+            if (value.Equals(""))
+            {
+                value = Environment.CurrentDirectory;
+            }
+
+            EnumLabel.Text = value;
+            _excelContext.EnumDirectory = value;
+            _iniFile.IniWriteValue(IniSectionName, IniNameOfEnumDirectory, value);
+        }
+        
         /// <summary>
         /// 设置导出的cs代码的命名空间.
         /// </summary>
@@ -162,6 +181,7 @@ namespace ExcelTool
         
         private void InitConfig()
         {
+            SetEnumDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfEnumDirectory, _excelContext.EnumDirectory));
             SetCsCodeNamespace(_iniFile.IniReadValue(IniSectionName, IniNameOfCsCodeNamespace, _excelContext.ChsarpCodeNameSpace));
             SetExcelDataDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfExcelDataDirectory, _excelContext.ExcelDataDirectory));
             SetBinaryOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfBinaryOutputDataDirectory, _excelContext.ClientDataOutDirectory));
@@ -176,14 +196,16 @@ namespace ExcelTool
         /// <param name="name"></param>
         /// <param name="defaultPath"></param>
         /// <returns></returns>
-        private string SelectFolder(string name, string defaultPath = "")
+        private string SelectFolder(string name, string defaultPath)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            if (Directory.Exists(defaultPath))
+            if (defaultPath.Equals("") || !Directory.Exists(defaultPath))
             {
-                dialog.SelectedPath = Path.GetFullPath(defaultPath);
-                SendKeys.Send("{TAB}{TAB}{RIGHT}");
+                defaultPath = Environment.CurrentDirectory;
             }
+            
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = Path.GetFullPath(defaultPath);
+            SendKeys.Send("{TAB}{TAB}{RIGHT}");
             dialog.Description = name;
             
             string path ="";
@@ -485,6 +507,11 @@ namespace ExcelTool
         private void CsCodeNamespace_TextChanged(object sender, EventArgs e)
         {
             SetCsCodeNamespace(CsNamespaceEdit.Text);
+        }
+
+        private void OpenEnumPathButton_Click(object sender, EventArgs e)
+        {
+            SetEnumDirectory(SelectFolder("枚举目录", _excelContext.EnumDirectory));
         }
     }
 }

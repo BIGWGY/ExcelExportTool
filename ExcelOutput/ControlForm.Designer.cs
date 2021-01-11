@@ -38,6 +38,8 @@
 	        this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 	        this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 	        this.groupBox1 = new System.Windows.Forms.GroupBox();
+	        this.EnumLabel = new System.Windows.Forms.Label();
+	        this.OpenEnumPathButton = new System.Windows.Forms.Button();
 	        this.ExcelFilterTextBox = new System.Windows.Forms.TextBox();
 	        this.FilterExcelButton = new System.Windows.Forms.Button();
 	        this.OpenBinaryOutputPath = new System.Windows.Forms.Button();
@@ -67,9 +69,9 @@
 	        // 
 	        this.TableCheckBoxList.CheckOnClick = true;
 	        this.TableCheckBoxList.FormattingEnabled = true;
-	        this.TableCheckBoxList.Location = new System.Drawing.Point(6, 83);
+	        this.TableCheckBoxList.Location = new System.Drawing.Point(6, 115);
 	        this.TableCheckBoxList.Name = "TableCheckBoxList";
-	        this.TableCheckBoxList.Size = new System.Drawing.Size(352, 228);
+	        this.TableCheckBoxList.Size = new System.Drawing.Size(352, 196);
 	        this.TableCheckBoxList.TabIndex = 1;
 	        this.TableCheckBoxList.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
 	        // 
@@ -139,6 +141,8 @@
 	        // 
 	        // groupBox1
 	        // 
+	        this.groupBox1.Controls.Add(this.EnumLabel);
+	        this.groupBox1.Controls.Add(this.OpenEnumPathButton);
 	        this.groupBox1.Controls.Add(this.ExcelFilterTextBox);
 	        this.groupBox1.Controls.Add(this.FilterExcelButton);
 	        this.groupBox1.Controls.Add(this.OpenExcelDataPath);
@@ -152,16 +156,34 @@
 	        this.groupBox1.Text = "表格";
 	        this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
 	        // 
+	        // EnumLabel
+	        // 
+	        this.EnumLabel.Location = new System.Drawing.Point(6, 55);
+	        this.EnumLabel.Name = "EnumLabel";
+	        this.EnumLabel.Size = new System.Drawing.Size(271, 20);
+	        this.EnumLabel.TabIndex = 44;
+	        this.EnumLabel.Text = "label2";
+	        // 
+	        // OpenEnumPathButton
+	        // 
+	        this.OpenEnumPathButton.Location = new System.Drawing.Point(283, 52);
+	        this.OpenEnumPathButton.Name = "OpenEnumPathButton";
+	        this.OpenEnumPathButton.Size = new System.Drawing.Size(75, 23);
+	        this.OpenEnumPathButton.TabIndex = 43;
+	        this.OpenEnumPathButton.Text = "枚举文件夹";
+	        this.OpenEnumPathButton.UseVisualStyleBackColor = true;
+	        this.OpenEnumPathButton.Click += new System.EventHandler(this.OpenEnumPathButton_Click);
+	        // 
 	        // ExcelFilterTextBox
 	        // 
-	        this.ExcelFilterTextBox.Location = new System.Drawing.Point(6, 49);
+	        this.ExcelFilterTextBox.Location = new System.Drawing.Point(6, 88);
 	        this.ExcelFilterTextBox.Name = "ExcelFilterTextBox";
 	        this.ExcelFilterTextBox.Size = new System.Drawing.Size(271, 21);
 	        this.ExcelFilterTextBox.TabIndex = 42;
 	        // 
 	        // FilterExcelButton
 	        // 
-	        this.FilterExcelButton.Location = new System.Drawing.Point(283, 49);
+	        this.FilterExcelButton.Location = new System.Drawing.Point(283, 88);
 	        this.FilterExcelButton.Name = "FilterExcelButton";
 	        this.FilterExcelButton.Size = new System.Drawing.Size(75, 23);
 	        this.FilterExcelButton.TabIndex = 12;
@@ -385,6 +407,7 @@
         private System.Windows.Forms.TextBox CsEnumCodeOutputPath;
         private System.Windows.Forms.TextBox CsNamespaceEdit;
         private System.Windows.Forms.TextBox CsTableCodeOutputPath;
+        private System.Windows.Forms.Label EnumLabel;
         private System.Windows.Forms.TextBox ExcelFilterTextBox;
         private System.Windows.Forms.Label ExcelPathText;
         private System.Windows.Forms.Button ExportButton;
@@ -401,6 +424,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox LogOutputText;
         private System.Windows.Forms.Button OpenBinaryOutputPath;
+        private System.Windows.Forms.Button OpenEnumPathButton;
         private System.Windows.Forms.Button OpenExcelDataPath;
         private System.Windows.Forms.Button ResetAllButton;
         private System.Windows.Forms.Button ReverseSelectButton;

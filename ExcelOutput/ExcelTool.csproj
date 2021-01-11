@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4BB7BA32-639C-4341-B95C-D6B19F47CBB7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExcelTool</RootNamespace>
     <AssemblyName>ExcelTool</AssemblyName>
@@ -374,7 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="example\static_activity.byte" />
-    <Content Include="example\static_activity.xlsx" />
     <Content Include="example\枚举清单.xlsx" />
   </ItemGroup>
   <ItemGroup>
