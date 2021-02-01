@@ -112,7 +112,7 @@ namespace ExcelTool
                 streamWriter.WriteLine("");
                 streamWriter.WriteLine($"namespace {_chsarpCodeNameSpace}");
                 streamWriter.WriteLine("{");
-                streamWriter.WriteLine($"    public class {classname}: DataRow");
+                streamWriter.WriteLine($"    public partial class {classname}: DataRow");
                 streamWriter.WriteLine("    {");
                 // 字段.
                 foreach (var columnInfo in excelDataTable.GetColumnInfos(ColumnBelong.Client))
