@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -82,6 +83,11 @@ namespace ExcelTool
         /// </summary>
         private Dictionary<string, ExcelDataTable> _excelDataTables = new Dictionary<string, ExcelDataTable>();
 
+        /// <summary>
+        /// 临时的存储导出的json字符串
+        /// </summary>
+        private ConcurrentDictionary<string, string> _tempClientJsonDictionary = new ConcurrentDictionary<string, string>();
+        
         /// <summary>
         /// excel 文件后缀。
         /// </summary>

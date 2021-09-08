@@ -49,6 +49,7 @@
 	        this.JsonCheckBox = new System.Windows.Forms.CheckBox();
 	        this.button2 = new System.Windows.Forms.Button();
 	        this.groupBox2 = new System.Windows.Forms.GroupBox();
+	        this.ClientJsonCheckBox = new System.Windows.Forms.CheckBox();
 	        this.AutoCodeNamespace = new System.Windows.Forms.Label();
 	        this.CsNamespaceEdit = new System.Windows.Forms.TextBox();
 	        this.button3 = new System.Windows.Forms.Button();
@@ -210,9 +211,6 @@
 	        // 
 	        // BinaryCheckBox
 	        // 
-	        this.BinaryCheckBox.AutoSize = true;
-	        this.BinaryCheckBox.Checked = true;
-	        this.BinaryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 	        this.BinaryCheckBox.Location = new System.Drawing.Point(6, 20);
 	        this.BinaryCheckBox.Name = "BinaryCheckBox";
 	        this.BinaryCheckBox.Size = new System.Drawing.Size(84, 16);
@@ -251,6 +249,7 @@
 	        // 
 	        // groupBox2
 	        // 
+	        this.groupBox2.Controls.Add(this.ClientJsonCheckBox);
 	        this.groupBox2.Controls.Add(this.AutoCodeNamespace);
 	        this.groupBox2.Controls.Add(this.CsNamespaceEdit);
 	        this.groupBox2.Controls.Add(this.button3);
@@ -272,6 +271,17 @@
 	        this.groupBox2.TabStop = false;
 	        this.groupBox2.Text = "导出选项";
 	        this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+	        // 
+	        // ClientJsonCheckBox
+	        // 
+	        this.ClientJsonCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+	        this.ClientJsonCheckBox.Location = new System.Drawing.Point(6, 208);
+	        this.ClientJsonCheckBox.Name = "ClientJsonCheckBox";
+	        this.ClientJsonCheckBox.Size = new System.Drawing.Size(203, 21);
+	        this.ClientJsonCheckBox.TabIndex = 46;
+	        this.ClientJsonCheckBox.Text = "导出单个客户端json文件";
+	        this.ClientJsonCheckBox.UseVisualStyleBackColor = true;
+	        this.ClientJsonCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
 	        // 
 	        // AutoCodeNamespace
 	        // 
@@ -397,6 +407,12 @@
 	        this.groupBox2.PerformLayout();
 	        this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.CheckBox ClientJsonCheckBox;
+
+        private System.Windows.Forms.CheckBox clientJson;
+
+        private System.Windows.Forms.CheckBox checkBox1;
 
         private System.Windows.Forms.Label AutoCodeNamespace;
         private System.Windows.Forms.CheckBox BinaryCheckBox;

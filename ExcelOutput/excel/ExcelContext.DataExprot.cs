@@ -13,20 +13,23 @@ namespace ExcelTool
     partial class ExcelContext
     {
         /// <summary>
-        /// 导出数据
+        /// 导出数据 
         /// </summary>
         /// <param name="exportServerJson"></param>
         /// <param name="exportClientBinary"></param>
-        public void ExportData(bool exportServerJson, bool exportClientBinary)
+        /// <param name="exportClientJson"></param>
+        public void ExportData(bool exportServerJson, bool exportClientBinary, bool exportClientJson)
         {
-            if (exportServerJson == false && exportClientBinary == false)
+            if (exportServerJson == false && exportClientBinary == false && exportClientJson == false)
             {
                 return;
             }
 
+            _tempClientJsonDictionary.Clear();
+            
             List<ExcelDataTable> list = new List<ExcelDataTable>(_excelDataTables.Values);
             list.Sort();
-
+            
             List<Task> tasks = new List<Task>();
             foreach (var excelDataTable in list)
             {
@@ -48,11 +51,38 @@ namespace ExcelTool
                         {
                             ExportBytes(excelDataTable.DataFileName, ColumnBelong.Client);
                         }
+
+                        if (exportClientJson)
+                        {
+                            ExportClientJson(excelDataTable.DataFileName, ColumnBelong.Client);
+                        }
                     }, CancellationToken.None, TaskCreationOptions.PreferFairness, _scheduler)
                 );
             }
 
             Task.WaitAll(tasks.ToArray());
+
+            ExportTempClientJson();
+        }
+
+        /// <summary>
+        /// 导出客户端的json文件
+        /// </summary>
+        public void ExportTempClientJson()
+        {
+            if (_tempClientJsonDictionary.IsEmpty)
+            {
+                return;
+            }
+            using (FileStream writeFile = new FileStream(GetClientJsonExportFileName(), FileMode.Create))
+            using (TextWriter textWriter = new StreamWriter(writeFile, Encoding.UTF8))
+            {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                textWriter.Write(JsonConvert.SerializeObject(_tempClientJsonDictionary, Formatting.None));
+                stopwatch.Stop();
+                WriteLog(LogLevel.Information, $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 client json 文件: {GetClientJsonExportFileName()}");
+            }
+            _tempClientJsonDictionary.Clear();
         }
 
         /// <summary>
@@ -74,7 +104,62 @@ namespace ExcelTool
         {
             return _serverDataOutDirectory + Path.DirectorySeparatorChar + excelDataTable.DataFileName + ".json";
         }
+        
+        /// <summary>
+        /// 客户端导出json文件名字
+        /// </summary>
+        /// <returns></returns>
+        public string GetClientJsonExportFileName()
+        {
+            return _excelExcelDataDirectory + Path.DirectorySeparatorChar + "client.json";
+        }
+        
+        /// <summary>
+        /// 导出客户端表的json字符串
+        /// </summary>
+        /// <param name="dataFileName"></param>
+        /// <param name="belong"></param>
+        private void ExportClientJson(string dataFileName, ColumnBelong belong)
+        {
+            if (!_excelDataTables.ContainsKey(dataFileName))
+            {
+                WriteLog(LogLevel.Error, $"找不到配置表: {dataFileName}");
+                return;
+            }
+            ExcelDataTable dataTable = _excelDataTables[dataFileName];
 
+            List<ColumnInfo> columnInfos = dataTable.GetColumnInfos(belong);
+            
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            List<Dictionary<string, Object>> list = new List<Dictionary<string, object>>();
+
+            for (int i = 0; i < dataTable.DataRowCount && columnInfos.Count > 0; i++)
+            {
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                foreach (var columnInfo in columnInfos)
+                {
+                    try
+                    {
+                        IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
+                        dictionary.Add(columnInfo.Name, parser.ToObject(columnInfo.GetRowValue(i)));
+                    }
+                    catch (Exception e)
+                    {
+                        WriteLog(LogLevel.Error, $"表格 {dataTable.DataFileName} {columnInfo.Name} 字段, {i + 5} 行, 值 {columnInfo.GetRowValue(i)}, 导出失败: {e.Message}");
+                        return;
+                    }
+                }
+
+                list.Add(dictionary);
+            }
+
+            string json = JsonConvert.SerializeObject(list, Formatting.None);
+            _tempClientJsonDictionary.AddOrUpdate(dataFileName, json, (s, s1) => json);
+            stopwatch.Stop();
+            WriteLog(LogLevel.Information, $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 client json 文件: {dataFileName}");
+        }
+         
         /// <summary>
         /// 导出 json 文件.
         /// </summary>
@@ -97,8 +182,8 @@ namespace ExcelTool
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
                 List<Dictionary<string, Object>> list = new List<Dictionary<string, object>>();
-
-                for (int i = 0; i < dataTable.DataRowCount; i++)
+                
+                for (int i = 0; i < dataTable.DataRowCount && columnInfos.Count > 0; i++)
                 {
                     Dictionary<string, object> dictionary = new Dictionary<string, object>();
                     foreach (var columnInfo in columnInfos)
@@ -121,8 +206,7 @@ namespace ExcelTool
 
                 textWriter.Write(JsonConvert.SerializeObject(list, Formatting.Indented));
                 stopwatch.Stop();
-                WriteLog(LogLevel.Information,
-                    $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 json 文件: {dataFileName}");
+                WriteLog(LogLevel.Information, $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 json 文件: {dataFileName}");
             }
         }
 

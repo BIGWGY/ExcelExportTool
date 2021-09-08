@@ -324,6 +324,7 @@ namespace ExcelTool
             
             bool exportServerJson = false;
             bool exportClientBinary = false;
+            bool exportClientJson = false;
             
             if (JsonCheckBox.Checked && Directory.Exists(JsonOutPath.Text))
             {
@@ -344,8 +345,12 @@ namespace ExcelTool
             {
                 _excelContext.ExportAllDatatable();
             }
-            
-            _excelContext.ExportData(exportServerJson, exportClientBinary);
+
+            if (ClientJsonCheckBox.Checked)
+            {
+                exportClientJson = true;
+            }
+            _excelContext.ExportData(exportServerJson, exportClientBinary, exportClientJson);
 
             stopwatch.Stop();
             ExportButton.Text = "导出";
@@ -512,6 +517,10 @@ namespace ExcelTool
         private void OpenEnumPathButton_Click(object sender, EventArgs e)
         {
             SetEnumDirectory(SelectFolder("枚举目录", _excelContext.EnumDirectory));
+        }
+
+        private void checkBox1_CheckedChanged_2(object sender, EventArgs e)
+        {
         }
     }
 }
