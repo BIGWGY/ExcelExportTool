@@ -47,6 +47,11 @@ namespace ExcelTool
         /// 导出的枚举代码放置的目录。 
         /// </summary>
         private string _csharpEnumCodeOutDirectory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "csharpenumcode";
+        
+        /// <summary>
+        /// 导出的客户端枚举路径 
+        /// </summary>
+        private string _clientJsonDataOutDirectory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "clientJson";
 
         /// <summary>
         /// 导出 csharp 代码的命名空间。 
@@ -156,6 +161,12 @@ namespace ExcelTool
             set => _chsarpCodeNameSpace = value;
         }
 
+        public string ClientJsonDataOutDirectory
+        {
+            get => _clientJsonDataOutDirectory;
+            set => _clientJsonDataOutDirectory = value;
+        }
+
         /// <summary>
         /// 检查数据目录。
         /// </summary>
@@ -186,6 +197,8 @@ namespace ExcelTool
                 Directory.CreateDirectory(_csharpTableCodeOutDirectory);
             if (!Directory.Exists(_csharpEnumCodeOutDirectory))
                 Directory.CreateDirectory(_csharpEnumCodeOutDirectory);
+            if (!Directory.Exists(_clientDataOutDirectory))
+                Directory.CreateDirectory(_clientDataOutDirectory);
         }
 
         /// <summary>

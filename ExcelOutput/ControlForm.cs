@@ -15,7 +15,6 @@ namespace ExcelTool
 
         private const string IniSectionName = "ExcelTool";
 
-
         private const string IniNameOfEnumDirectory = "EnumDirectory";
         private const string IniNameOfCsCodeNamespace = "CsCodeNamespace";
         private const string IniNameOfExcelDataDirectory = "ExcelDataDirectory";
@@ -23,6 +22,7 @@ namespace ExcelTool
         private const string IniNameOfBinaryOutputDataDirectory = "BinaryOutputDataDirectory";
         private const string IniNameOfCsEnumCodeOutputDirectory = "CsEnumCodeOutputDirectory";
         private const string IniNameOfCsTableCodeOutputDirectory = "CsTableCodeOutputDirectory";
+        private const string IniNameOfClientJsonOutputDirectory = "ClientJsonOutputDirectory";
         
         private IniFile _iniFile = new IniFile(Environment.CurrentDirectory + Path.DirectorySeparatorChar + "tool.ini");
         
@@ -128,6 +128,21 @@ namespace ExcelTool
             _excelContext.ServerDataOutDirectory = directory;
             _iniFile.IniWriteValue(IniSectionName, IniNameOfJsonOutputDataDirectory, directory);
         }
+        
+        /// <summary>
+        /// 设置客户端json文件的输出目录。
+        /// </summary>
+        /// <param name="directory"></param>
+        public void SetClientJsonOutputDirectory(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                return;
+            }
+            ClientJsonPath.Text = directory;
+            _excelContext.ClientJsonDataOutDirectory = directory;
+            _iniFile.IniWriteValue(IniSectionName, IniNameOfClientJsonOutputDirectory, directory);
+        }
 
         /// <summary>
         /// 设置导出枚举目录。
@@ -188,6 +203,7 @@ namespace ExcelTool
             SetJsonOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfJsonOutputDataDirectory, _excelContext.ServerDataOutDirectory));
             SetCsEnumCodeOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfCsEnumCodeOutputDirectory, _excelContext.CsharpEnumCodeOutDirectory));
             SetCsTableCodeOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfCsTableCodeOutputDirectory, _excelContext.CsharpTableCodeOutDirectory));
+            SetClientJsonOutputDirectory(_iniFile.IniReadValue(IniSectionName, IniNameOfClientJsonOutputDirectory, _excelContext.ClientDataOutDirectory));
         }
 
         /// <summary>
@@ -308,6 +324,16 @@ namespace ExcelTool
         }
         
         /// <summary>
+        /// 选择客户端json文件的输出目录。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectClientJsonOutputButtonClick(object sender, EventArgs e)
+        {
+            SetClientJsonOutputDirectory(SelectFolder("选择客户端json文件的输出目录", _excelContext.ClientDataOutDirectory));
+        }
+        
+        /// <summary>
         /// 导出
         /// </summary>
         /// <param name="sender"></param>
@@ -346,7 +372,7 @@ namespace ExcelTool
                 _excelContext.ExportAllDatatable();
             }
 
-            if (ClientJsonCheckBox.Checked)
+            if (ClientJsonCheckBox.Checked && Directory.Exists(ClientJsonPath.Text))
             {
                 exportClientJson = true;
             }
@@ -521,6 +547,15 @@ namespace ExcelTool
 
         private void checkBox1_CheckedChanged_2(object sender, EventArgs e)
         {
+        }
+
+        private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SelectClientJsonOutputButtonClick(sender, e);
         }
     }
 }

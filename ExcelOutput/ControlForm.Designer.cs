@@ -49,6 +49,8 @@
 	        this.JsonCheckBox = new System.Windows.Forms.CheckBox();
 	        this.button2 = new System.Windows.Forms.Button();
 	        this.groupBox2 = new System.Windows.Forms.GroupBox();
+	        this.button4 = new System.Windows.Forms.Button();
+	        this.ClientJsonPath = new System.Windows.Forms.TextBox();
 	        this.ClientJsonCheckBox = new System.Windows.Forms.CheckBox();
 	        this.AutoCodeNamespace = new System.Windows.Forms.Label();
 	        this.CsNamespaceEdit = new System.Windows.Forms.TextBox();
@@ -206,6 +208,7 @@
 	        // 
 	        this.BinaryOutPath.Location = new System.Drawing.Point(108, 18);
 	        this.BinaryOutPath.Name = "BinaryOutPath";
+	        this.BinaryOutPath.ReadOnly = true;
 	        this.BinaryOutPath.Size = new System.Drawing.Size(218, 21);
 	        this.BinaryOutPath.TabIndex = 16;
 	        // 
@@ -223,6 +226,7 @@
 	        // 
 	        this.JsonOutPath.Location = new System.Drawing.Point(108, 52);
 	        this.JsonOutPath.Name = "JsonOutPath";
+	        this.JsonOutPath.ReadOnly = true;
 	        this.JsonOutPath.Size = new System.Drawing.Size(218, 21);
 	        this.JsonOutPath.TabIndex = 34;
 	        this.JsonOutPath.TextChanged += new System.EventHandler(this.textBox2_TextChanged_1);
@@ -249,6 +253,8 @@
 	        // 
 	        // groupBox2
 	        // 
+	        this.groupBox2.Controls.Add(this.button4);
+	        this.groupBox2.Controls.Add(this.ClientJsonPath);
 	        this.groupBox2.Controls.Add(this.ClientJsonCheckBox);
 	        this.groupBox2.Controls.Add(this.AutoCodeNamespace);
 	        this.groupBox2.Controls.Add(this.CsNamespaceEdit);
@@ -271,6 +277,25 @@
 	        this.groupBox2.TabStop = false;
 	        this.groupBox2.Text = "导出选项";
 	        this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+	        // 
+	        // button4
+	        // 
+	        this.button4.Location = new System.Drawing.Point(332, 206);
+	        this.button4.Name = "button4";
+	        this.button4.Size = new System.Drawing.Size(26, 23);
+	        this.button4.TabIndex = 48;
+	        this.button4.Text = "..";
+	        this.button4.UseVisualStyleBackColor = true;
+	        this.button4.Click += new System.EventHandler(this.button4_Click);
+	        // 
+	        // ClientJsonPath
+	        // 
+	        this.ClientJsonPath.Location = new System.Drawing.Point(161, 208);
+	        this.ClientJsonPath.Name = "ClientJsonPath";
+	        this.ClientJsonPath.ReadOnly = true;
+	        this.ClientJsonPath.Size = new System.Drawing.Size(165, 21);
+	        this.ClientJsonPath.TabIndex = 47;
+	        this.ClientJsonPath.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
 	        // 
 	        // ClientJsonCheckBox
 	        // 
@@ -324,6 +349,7 @@
 	        // 
 	        this.CsTableCodeOutputPath.Location = new System.Drawing.Point(108, 127);
 	        this.CsTableCodeOutputPath.Name = "CsTableCodeOutputPath";
+	        this.CsTableCodeOutputPath.ReadOnly = true;
 	        this.CsTableCodeOutputPath.Size = new System.Drawing.Size(218, 21);
 	        this.CsTableCodeOutputPath.TabIndex = 41;
 	        this.CsTableCodeOutputPath.TextChanged += new System.EventHandler(this.CsTableCodeOutputPath_TextChanged);
@@ -352,6 +378,7 @@
 	        // 
 	        this.CsEnumCodeOutputPath.Location = new System.Drawing.Point(108, 91);
 	        this.CsEnumCodeOutputPath.Name = "CsEnumCodeOutputPath";
+	        this.CsEnumCodeOutputPath.ReadOnly = true;
 	        this.CsEnumCodeOutputPath.Size = new System.Drawing.Size(218, 21);
 	        this.CsEnumCodeOutputPath.TabIndex = 38;
 	        this.CsEnumCodeOutputPath.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
@@ -407,6 +434,15 @@
 	        this.groupBox2.PerformLayout();
 	        this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.TextBox cl;
+
+        private System.Windows.Forms.TextBox ClientJsonPath;
+
+        private System.Windows.Forms.TextBox ClientJsonBox;
+
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button4;
 
         private System.Windows.Forms.CheckBox ClientJsonCheckBox;
 
