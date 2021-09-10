@@ -154,8 +154,7 @@ namespace ExcelTool
                 list.Add(dictionary);
             }
 
-            string json = JsonConvert.SerializeObject(list, Formatting.None);
-            _tempClientJsonDictionary.AddOrUpdate(dataFileName, json, (s, s1) => json);
+            _tempClientJsonDictionary.AddOrUpdate(dataFileName, list, (s, s1) => list);
             stopwatch.Stop();
             WriteLog(LogLevel.Information, $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 client json 文件: {dataFileName}");
         }

@@ -86,7 +86,7 @@ namespace ExcelTool
         /// <summary>
         /// 临时的存储导出的json字符串
         /// </summary>
-        private ConcurrentDictionary<string, string> _tempClientJsonDictionary = new ConcurrentDictionary<string, string>();
+        private ConcurrentDictionary<string, object> _tempClientJsonDictionary = new ConcurrentDictionary<string, object>();
         
         /// <summary>
         /// excel 文件后缀。
