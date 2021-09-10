@@ -111,7 +111,7 @@ namespace ExcelTool
         /// <returns></returns>
         public string GetClientJsonExportFileName()
         {
-            return _clientDataOutDirectory + Path.DirectorySeparatorChar + "client.json";
+            return _clientJsonDataOutDirectory + Path.DirectorySeparatorChar + "client.json";
         }
         
         /// <summary>

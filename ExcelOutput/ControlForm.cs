@@ -330,7 +330,7 @@ namespace ExcelTool
         /// <param name="e"></param>
         private void SelectClientJsonOutputButtonClick(object sender, EventArgs e)
         {
-            SetClientJsonOutputDirectory(SelectFolder("选择客户端json文件的输出目录", _excelContext.ClientDataOutDirectory));
+            SetClientJsonOutputDirectory(SelectFolder("选择客户端json文件的输出目录", _excelContext.ClientJsonDataOutDirectory));
         }
         
         /// <summary>
