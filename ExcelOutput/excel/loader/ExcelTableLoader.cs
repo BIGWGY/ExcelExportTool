@@ -41,7 +41,7 @@ namespace ExcelTool
             ISheet mainSheet = _workbook.GetSheet(ExcelDataTable.MainSheetName);
             if (mainSheet == null)
             {
-                throw new RuntimeException($"表格 {_excelDataTable.DataFileName} 配置错误!");
+                throw new RuntimeException($"表格 {_excelDataTable.DataFileName} 配置错误!（可能有空格）");
             }
             // 前四个字段类型行数据
             IRow belongRow = mainSheet.GetRow(0);
@@ -236,7 +236,7 @@ namespace ExcelTool
                 ISheet mainSheet = _workbook.GetSheet(ExcelDataTable.MainSheetName);
                 if (mainSheet == null || mainSheet.PhysicalNumberOfRows < 4)
                 {
-                    throw new RuntimeException($"表格 {_excelDataTable.DataFileName} 配置错误!");
+                    throw new RuntimeException($"表格 {_excelDataTable.DataFileName} 配置错误! 第一个sheet的名字需要配置为 Main");
                 }
                 ReadTableColumnInfo();
                 ReadTableConstraint();

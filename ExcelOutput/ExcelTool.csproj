@@ -299,6 +299,7 @@
     <Compile Include="excel\columns\LangColumnParser.cs" />
     <Compile Include="excel\columns\LongColumnParser.cs" />
     <Compile Include="excel\columns\ShortColumnParser.cs" />
+    <Compile Include="excel\columns\StringArrayColumnParser.cs" />
     <Compile Include="excel\columns\StringColumnParser.cs" />
     <Compile Include="excel\columns\TimeColumnParser.cs" />
     <Compile Include="excel\EnumInfo.cs" />

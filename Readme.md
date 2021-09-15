@@ -22,12 +22,13 @@
    * `Double`
    * `Float`
    * `Short` 、`Int16`
-   * `Int`  、`Int32`、`Lang`
+   * `Int`  、`Int32`、`Lang`、`Int64`
    * `Long`
    * `String`
    * `Time (YYYY/mm/dd HH:ii)`
    * `IntArray` :  配置格式  “1|2|3|4 ”
    * `IntIntDictionary`: 配置格式   “1,2|3,4|5,6”
+   * `StringArray`: 配置格式  “a|b|3|4”
 6. 表可以不定义主键，如果表需要定义主键，那么主键字段的类型必须为 `Int32`， 并且字段注释为 “主键”。
 7. 如果字段名为 “*”  、导出范围不填， 那么导出表的时候，该列将被忽略。
 

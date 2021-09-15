@@ -31,5 +31,7 @@
         IntArray,
         
         IntIntDictionary,
+        
+        StringArray,
     }
 }
