@@ -23,6 +23,7 @@ namespace ExcelTool
             _parsers.Add(ColumnType.Lang, new LangColumnParser());
             _parsers.Add(ColumnType.IntArray, new IntArrayColumnParser());
             _parsers.Add(ColumnType.IntIntDictionary, new IntIntDictionary());
+            _parsers.Add(ColumnType.StringArray, new StringArrayColumnParser());
         }
 
         public IColumnParser GetColumnParser(ColumnType columnType)
