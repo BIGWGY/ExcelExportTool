@@ -80,7 +80,7 @@ namespace ExcelTool
             "unsafe",
             "ushort",
             "using",
-            "value",
+            // "value",
             "virtual",
             "volatile",
             "volatile",
