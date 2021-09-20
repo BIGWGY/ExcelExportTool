@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace ExcelTool
 {
-    public class IntIntDictionary: IColumnParser
+    public class IntIntMap: IColumnParser
     {
         public ColumnType GetColumnType()
         {
-            return ColumnType.IntIntDictionary;
+            return ColumnType.IntIntMap;
         }
 
         public object ToObject(string value)

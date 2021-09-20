@@ -30,7 +30,7 @@
         
         IntArray,
         
-        IntIntDictionary,
+        IntIntMap,
         
         StringArray,
     }

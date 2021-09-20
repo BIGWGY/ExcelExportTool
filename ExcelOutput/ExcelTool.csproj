@@ -295,7 +295,7 @@
     <Compile Include="excel\columns\Int64ColumnParser.cs" />
     <Compile Include="excel\columns\Int8ColumnParser.cs" />
     <Compile Include="excel\columns\IntColumnParser.cs" />
-    <Compile Include="excel\columns\IntIntDictionary.cs" />
+    <Compile Include="excel\columns\IntIntMap.cs" />
     <Compile Include="excel\columns\LangColumnParser.cs" />
     <Compile Include="excel\columns\LongColumnParser.cs" />
     <Compile Include="excel\columns\ShortColumnParser.cs" />
