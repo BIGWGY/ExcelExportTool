@@ -123,6 +123,10 @@ namespace ExcelTool
         /// </summary>
         private void LoadAllEnumTables()
         {
+            if (!Directory.Exists(_enumDirectory))
+            {
+                return;
+            }
             DirectoryInfo di = new DirectoryInfo(_enumDirectory);
 
             FileInfo[] fileInfos = di.GetFiles().Where(f => f.Name.EndsWith(ExcelSuffix)).ToArray();
