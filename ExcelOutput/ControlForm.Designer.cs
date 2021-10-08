@@ -120,7 +120,7 @@
 	        // 
 	        // ExportButton
 	        // 
-	        this.ExportButton.Location = new System.Drawing.Point(352, 556);
+	        this.ExportButton.Location = new System.Drawing.Point(254, 556);
 	        this.ExportButton.Name = "ExportButton";
 	        this.ExportButton.Size = new System.Drawing.Size(76, 25);
 	        this.ExportButton.TabIndex = 8;
@@ -166,6 +166,7 @@
 	        this.EnumLabel.Size = new System.Drawing.Size(271, 20);
 	        this.EnumLabel.TabIndex = 44;
 	        this.EnumLabel.Text = "label2";
+	        this.EnumLabel.Visible = false;
 	        // 
 	        // OpenEnumPathButton
 	        // 
@@ -175,6 +176,7 @@
 	        this.OpenEnumPathButton.TabIndex = 43;
 	        this.OpenEnumPathButton.Text = "枚举文件夹";
 	        this.OpenEnumPathButton.UseVisualStyleBackColor = true;
+	        this.OpenEnumPathButton.Visible = false;
 	        this.OpenEnumPathButton.Click += new System.EventHandler(this.OpenEnumPathButton_Click);
 	        // 
 	        // ExcelFilterTextBox
@@ -196,30 +198,33 @@
 	        // 
 	        // OpenBinaryOutputPath
 	        // 
-	        this.OpenBinaryOutputPath.Location = new System.Drawing.Point(332, 16);
+	        this.OpenBinaryOutputPath.Location = new System.Drawing.Point(332, 203);
 	        this.OpenBinaryOutputPath.Name = "OpenBinaryOutputPath";
 	        this.OpenBinaryOutputPath.Size = new System.Drawing.Size(26, 23);
 	        this.OpenBinaryOutputPath.TabIndex = 4;
 	        this.OpenBinaryOutputPath.Text = "..";
 	        this.OpenBinaryOutputPath.UseVisualStyleBackColor = true;
+	        this.OpenBinaryOutputPath.Visible = false;
 	        this.OpenBinaryOutputPath.Click += new System.EventHandler(this.SelectExportBinaryPathButtonClick);
 	        // 
 	        // BinaryOutPath
 	        // 
-	        this.BinaryOutPath.Location = new System.Drawing.Point(108, 18);
+	        this.BinaryOutPath.Location = new System.Drawing.Point(108, 205);
 	        this.BinaryOutPath.Name = "BinaryOutPath";
 	        this.BinaryOutPath.ReadOnly = true;
 	        this.BinaryOutPath.Size = new System.Drawing.Size(218, 21);
 	        this.BinaryOutPath.TabIndex = 16;
+	        this.BinaryOutPath.Visible = false;
 	        // 
 	        // BinaryCheckBox
 	        // 
-	        this.BinaryCheckBox.Location = new System.Drawing.Point(6, 20);
+	        this.BinaryCheckBox.Location = new System.Drawing.Point(6, 207);
 	        this.BinaryCheckBox.Name = "BinaryCheckBox";
 	        this.BinaryCheckBox.Size = new System.Drawing.Size(84, 16);
 	        this.BinaryCheckBox.TabIndex = 17;
 	        this.BinaryCheckBox.Text = "导出二进制";
 	        this.BinaryCheckBox.UseVisualStyleBackColor = true;
+	        this.BinaryCheckBox.Visible = false;
 	        this.BinaryCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 	        // 
 	        // JsonOutPath
@@ -280,7 +285,7 @@
 	        // 
 	        // button4
 	        // 
-	        this.button4.Location = new System.Drawing.Point(332, 206);
+	        this.button4.Location = new System.Drawing.Point(332, 19);
 	        this.button4.Name = "button4";
 	        this.button4.Size = new System.Drawing.Size(26, 23);
 	        this.button4.TabIndex = 48;
@@ -290,7 +295,7 @@
 	        // 
 	        // ClientJsonPath
 	        // 
-	        this.ClientJsonPath.Location = new System.Drawing.Point(161, 208);
+	        this.ClientJsonPath.Location = new System.Drawing.Point(161, 21);
 	        this.ClientJsonPath.Name = "ClientJsonPath";
 	        this.ClientJsonPath.ReadOnly = true;
 	        this.ClientJsonPath.Size = new System.Drawing.Size(165, 21);
@@ -300,7 +305,7 @@
 	        // ClientJsonCheckBox
 	        // 
 	        this.ClientJsonCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-	        this.ClientJsonCheckBox.Location = new System.Drawing.Point(6, 208);
+	        this.ClientJsonCheckBox.Location = new System.Drawing.Point(6, 21);
 	        this.ClientJsonCheckBox.Name = "ClientJsonCheckBox";
 	        this.ClientJsonCheckBox.Size = new System.Drawing.Size(203, 21);
 	        this.ClientJsonCheckBox.TabIndex = 46;
@@ -315,6 +320,7 @@
 	        this.AutoCodeNamespace.Size = new System.Drawing.Size(84, 21);
 	        this.AutoCodeNamespace.TabIndex = 45;
 	        this.AutoCodeNamespace.Text = "CS的命名空间";
+	        this.AutoCodeNamespace.Visible = false;
 	        // 
 	        // CsNamespaceEdit
 	        // 
@@ -322,6 +328,7 @@
 	        this.CsNamespaceEdit.Name = "CsNamespaceEdit";
 	        this.CsNamespaceEdit.Size = new System.Drawing.Size(218, 21);
 	        this.CsNamespaceEdit.TabIndex = 44;
+	        this.CsNamespaceEdit.Visible = false;
 	        this.CsNamespaceEdit.TextChanged += new System.EventHandler(this.CsCodeNamespace_TextChanged);
 	        // 
 	        // button3
@@ -332,6 +339,7 @@
 	        this.button3.TabIndex = 43;
 	        this.button3.Text = "..";
 	        this.button3.UseVisualStyleBackColor = true;
+	        this.button3.Visible = false;
 	        this.button3.Click += new System.EventHandler(this.SelectTableCodeOutputPath);
 	        // 
 	        // ExportTableCodeCheckBox
@@ -343,6 +351,7 @@
 	        this.ExportTableCodeCheckBox.TabIndex = 39;
 	        this.ExportTableCodeCheckBox.Text = "导出CSTable";
 	        this.ExportTableCodeCheckBox.UseVisualStyleBackColor = true;
+	        this.ExportTableCodeCheckBox.Visible = false;
 	        this.ExportTableCodeCheckBox.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
 	        // 
 	        // CsTableCodeOutputPath
@@ -352,6 +361,7 @@
 	        this.CsTableCodeOutputPath.ReadOnly = true;
 	        this.CsTableCodeOutputPath.Size = new System.Drawing.Size(218, 21);
 	        this.CsTableCodeOutputPath.TabIndex = 41;
+	        this.CsTableCodeOutputPath.Visible = false;
 	        this.CsTableCodeOutputPath.TextChanged += new System.EventHandler(this.CsTableCodeOutputPath_TextChanged);
 	        // 
 	        // button1
@@ -362,6 +372,7 @@
 	        this.button1.TabIndex = 40;
 	        this.button1.Text = "..";
 	        this.button1.UseVisualStyleBackColor = true;
+	        this.button1.Visible = false;
 	        this.button1.Click += new System.EventHandler(this.SelectEnumCodeOutputPath);
 	        // 
 	        // ExportEnumCodeCheckbox
@@ -372,6 +383,7 @@
 	        this.ExportEnumCodeCheckbox.TabIndex = 39;
 	        this.ExportEnumCodeCheckbox.Text = "导出枚举";
 	        this.ExportEnumCodeCheckbox.UseVisualStyleBackColor = true;
+	        this.ExportEnumCodeCheckbox.Visible = false;
 	        this.ExportEnumCodeCheckbox.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
 	        // 
 	        // CsEnumCodeOutputPath
@@ -381,6 +393,7 @@
 	        this.CsEnumCodeOutputPath.ReadOnly = true;
 	        this.CsEnumCodeOutputPath.Size = new System.Drawing.Size(218, 21);
 	        this.CsEnumCodeOutputPath.TabIndex = 38;
+	        this.CsEnumCodeOutputPath.Visible = false;
 	        this.CsEnumCodeOutputPath.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
 	        // 
 	        // label1
@@ -393,12 +406,13 @@
 	        // 
 	        // ExportTestCodeButton
 	        // 
-	        this.ExportTestCodeButton.Location = new System.Drawing.Point(254, 556);
+	        this.ExportTestCodeButton.Location = new System.Drawing.Point(336, 556);
 	        this.ExportTestCodeButton.Name = "ExportTestCodeButton";
 	        this.ExportTestCodeButton.Size = new System.Drawing.Size(92, 25);
 	        this.ExportTestCodeButton.TabIndex = 21;
 	        this.ExportTestCodeButton.Text = "导出CS测试类";
 	        this.ExportTestCodeButton.UseVisualStyleBackColor = true;
+	        this.ExportTestCodeButton.Visible = false;
 	        this.ExportTestCodeButton.Click += new System.EventHandler(this.ExportTestCodeButton_Click);
 	        // 
 	        // LogOutputText
