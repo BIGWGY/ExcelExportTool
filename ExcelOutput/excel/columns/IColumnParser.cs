@@ -22,6 +22,12 @@ namespace ExcelTool
         /// </summary>
         /// <returns></returns>
         string ToCSharpTypeString();
+    
+        /// <summary>
+        /// 返回 java 对应的数据类型。
+        /// </summary>
+        /// <returns></returns>
+        string ToJavaTypeString();
         
         /// <summary>
         /// 写入二进制流。

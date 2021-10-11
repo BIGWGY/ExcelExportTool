@@ -15,6 +15,11 @@ namespace ExcelTool
             return "byte";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "byte";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? (short)0 : Int16.Parse(value);

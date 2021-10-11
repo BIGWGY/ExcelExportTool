@@ -15,6 +15,11 @@ namespace ExcelTool
             return "long";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "long";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? (long) 0 : (long)double.Parse(value);

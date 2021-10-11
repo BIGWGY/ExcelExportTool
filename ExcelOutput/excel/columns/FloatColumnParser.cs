@@ -15,6 +15,11 @@ namespace ExcelTool
             return "float";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "float";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? (float) 0 : float.Parse(value);

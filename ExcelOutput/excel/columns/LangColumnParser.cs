@@ -14,7 +14,12 @@ namespace ExcelTool
 
         public string ToCSharpTypeString()
         {
-            return "Int32";
+            return "string";
+        }
+
+        public string ToJavaTypeString()
+        {
+            return "String";
         }
 
         public object ToObject(string value)
@@ -24,12 +29,12 @@ namespace ExcelTool
 
         public void WriteToBinaryWriter(BinaryWriter writer, string value)
         {
-            writer.Write(value.Equals("") ? (Int32)0 : Int32.Parse(value));
+            writer.Write(value);
         }
 
         public string ReadFromBinaryReaderExpression()
         {
-            return @"reader.ReadInt32()";
+            return @"reader.ReadString()";
         }
     }
 }

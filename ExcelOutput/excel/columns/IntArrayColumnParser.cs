@@ -16,6 +16,11 @@ namespace ExcelTool
             return value.Split(new []{'|'}, StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToList();
         }
 
+        public string ToJavaTypeString()
+        {
+            return "List<Integer>";
+        }
+
         public string ToCSharpTypeString()
         {
             return "List<int>";

@@ -15,6 +15,11 @@ namespace ExcelTool
             return "double";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "double";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? (double) 0 : double.Parse(value);

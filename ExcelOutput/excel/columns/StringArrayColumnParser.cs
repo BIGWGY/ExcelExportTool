@@ -21,6 +21,11 @@ namespace ExcelTool
             return "List<string>";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "List<String>";
+        }
+
         public void WriteToBinaryWriter(BinaryWriter writer, string value)
         {
             writer.Write(value);

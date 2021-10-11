@@ -14,6 +14,11 @@ namespace ExcelTool
             return "string";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "String";
+        }
+
         public object ToObject(string value)
         {
             return value;

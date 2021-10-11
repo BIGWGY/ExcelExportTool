@@ -15,6 +15,11 @@ namespace ExcelTool
             return "short";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "short";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? (short) 0 : (short)double.Parse(value);

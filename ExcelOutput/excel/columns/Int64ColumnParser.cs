@@ -15,6 +15,11 @@ namespace ExcelTool
             return "Int64";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "long";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? (Int64) 0 : Convert.ToInt64(double.Parse(value));

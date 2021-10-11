@@ -82,7 +82,11 @@ namespace ExcelTool
                             AddDebugInfo(LogLevel.Debug, $"{_excelDataTable.DataFileName}, 主键默认为 int32!");
                         }
                         columnType = ColumnType.Int32;
-                    }
+                    }   
+                    else if (GetCellString(nameRow.GetCell(col)).contains("_Array1"))
+                    {
+                        columnType = ColumnType.StringArray;
+                    } 
                     else
                     {
                         columnType = GetColumnType(GetCellString(typeRow.GetCell(col)));
@@ -93,7 +97,7 @@ namespace ExcelTool
                     {
                         throw new Exception($"字段名不能为c#关键字: {name}");
                     }
-                    
+
                     ColumnInfo columnInfo = new ColumnInfo();
                     columnInfo.ColumnIndex = col;
                     columnInfo.PrimaryKey = primaryKey;
@@ -180,6 +184,7 @@ namespace ExcelTool
         /// </summary>
         private void ReadTableConstraint()
         {
+            return;
             ISheet constraintSheet = _workbook.GetSheet(ExcelDataTable.SettingSheetName);
             if (constraintSheet == null)
             {

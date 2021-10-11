@@ -15,6 +15,11 @@ namespace ExcelTool
             return "DateTime";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "String";
+        }
+
         public object ToObject(string value)
         {
             return DateTime.FromOADate(double.Parse(string.IsNullOrWhiteSpace(value) ? "0" : value)).ToString();

@@ -15,6 +15,11 @@ namespace ExcelTool
             return "Int32";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "int";
+        }
+
         public object ToObject(string value)
         {
             return string.IsNullOrWhiteSpace(value) ?  0 : Convert.ToInt32(double.Parse(value));

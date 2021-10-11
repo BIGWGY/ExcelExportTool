@@ -28,6 +28,11 @@ namespace ExcelTool
             return "Dictionary<int, int>";
         }
 
+        public string ToJavaTypeString()
+        {
+            return "Map<Integer, Integer>";
+        }
+
         public void WriteToBinaryWriter(BinaryWriter writer, string value)
         {
             writer.Write(value);

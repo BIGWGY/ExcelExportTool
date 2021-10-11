@@ -152,6 +152,44 @@ namespace ExcelTool
             }
         }
         
+        
+        public void ExportJavaCode(ExcelDataTable excelDataTable)
+        {
+            string classname = StringUtils.ToCamel(excelDataTable.DataFileName) + "Config";
+            classname =  classname.substring(6);
+            string filename = @"C:\Users\Administrator\Desktop\code\" + classname + ".java";
+            
+            using (FileStream fileStream = new FileStream(filename, FileMode.Create))
+            using (StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
+            {
+                streamWriter.WriteLine("package com.dy.shared.dataconfig.model;");
+                streamWriter.WriteLine("");
+                streamWriter.WriteLine("import com.dy.shared.model.BattleGeneralInfo;");
+                streamWriter.WriteLine("import litchi.core.dataconfig.ConfigAdapter;");
+                streamWriter.WriteLine("import litchi.core.dataconfig.IndexObject;");
+                streamWriter.WriteLine("import litchi.core.dataconfig.annotation.DataFile;");
+                streamWriter.WriteLine("import litchi.core.dataconfig.annotation.FieldName;");
+                streamWriter.WriteLine("import litchi.core.dataconfig.annotation.IndexPK;");
+                streamWriter.WriteLine("import java.util.ArrayList;");
+                streamWriter.WriteLine("import java.util.List;");
+                streamWriter.WriteLine("import java.util.Map;");
+                streamWriter.WriteLine("");
+                
+                streamWriter.WriteLine($"@DataFile(fileName = \"{excelDataTable.DataFileName}\")");
+                streamWriter.WriteLine("public class " + classname + " implements ConfigAdapter {");
+        
+                // 字段.
+                foreach (var columnInfo in excelDataTable.GetColumnInfos(ColumnBelong.Client))
+                {
+                    IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
+                    streamWriter.WriteLine($"   /** {columnInfo.Title} */");
+                    streamWriter.WriteLine("   @FieldName");
+                    streamWriter.WriteLine($"  private {parser.ToJavaTypeString()} {columnInfo.Name};");
+                }
+                streamWriter.WriteLine( "}");
+            }
+        }
+        
         /// <summary>
         /// 导出所有的枚举表。
         /// </summary>
@@ -172,6 +210,7 @@ namespace ExcelTool
             CopyTemplateCode();
         }
 
+                
         /// <summary>
         /// 拷贝模版
         /// </summary>
