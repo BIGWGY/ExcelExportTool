@@ -109,45 +109,76 @@ namespace ExcelTool
                 streamWriter.WriteLine("using System.IO;");
                 streamWriter.WriteLine("using System.Linq;");
                 streamWriter.WriteLine("using System.Collections.Generic;");
+                streamWriter.WriteLine("using UnityGameFramework.Runtime;");
+                
                 streamWriter.WriteLine("");
                 streamWriter.WriteLine($"namespace {_chsarpCodeNameSpace}");
                 streamWriter.WriteLine("{");
-                streamWriter.WriteLine($"    public partial class {classname}: DataRow");
-                streamWriter.WriteLine("    {");
+                streamWriter.WriteLine($"\tpublic partial class {classname}: DataRowBase");
+                streamWriter.WriteLine("\t{");
                 // 字段.
                 foreach (var columnInfo in excelDataTable.GetColumnInfos(ColumnBelong.Client))
                 {
                     IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
-                    streamWriter.WriteLine($"        /// <summary> {columnInfo.Title} </summary>");
-                    streamWriter.WriteLine($"        public {parser.ToCSharpTypeString()} {columnInfo.Name}");
-                    streamWriter.WriteLine( "        {");
-                    streamWriter.WriteLine( "            get;");
-                    streamWriter.WriteLine( "            private set;");
-                    streamWriter.WriteLine( "        }");
+                    streamWriter.WriteLine($"\t\t/// <summary> {columnInfo.Title} </summary>");
+                    if ("Id".Equals(columnInfo.Name))
+                    {
+                        streamWriter.WriteLine("\t\tprivate int m_Id = 0;");
+                        streamWriter.WriteLine("\t\tpublic override int Id");
+                        streamWriter.WriteLine("\t\t{");
+                        streamWriter.WriteLine("\t\t\tget { return m_Id; }");
+                        // streamWriter.WriteLine("\t\t}");
+                    }
+                    else
+                    {
+                        streamWriter.WriteLine($"\t\tpublic {parser.ToCSharpTypeString()} {StringUtils.ToCamel(columnInfo.Name)}");
+                        streamWriter.WriteLine( "\t\t{");
+                        streamWriter.WriteLine( "\t\t\tget;");
+                    }
+                    if (!"Id".Equals(columnInfo.Name))
+                    {
+                        streamWriter.WriteLine( "\t\t\tprivate set;");    
+                    }
+                    streamWriter.WriteLine( "\t\t}");
+                    streamWriter.WriteLine( "");
                 }
-                // 解析函数
-                streamWriter.WriteLine($"        public override void ReadRowData(BinaryReader reader)");
-                streamWriter.WriteLine( "        {");
+                
+                // 行字符串解析函数
+                streamWriter.WriteLine("\t\tpublic virtual bool ParseDataRow(string dataRowString, object userData)");
+                streamWriter.WriteLine( "\t\t{");
+                streamWriter.WriteLine( "\t\t\t throw new Exception(\"not allow call this method!\");");
+                streamWriter.WriteLine( "\t\t}");
+                streamWriter.WriteLine( "");
+
+                // 行字节流解析函数
+                streamWriter.WriteLine("\t\tpublic override bool ParseDataRow(byte[] dataRowBytes, int startIndex, int length, object userData)");
+                streamWriter.WriteLine( "\t\t{");
+                streamWriter.WriteLine("\t\t\tusing (MemoryStream memoryStream = new MemoryStream(dataRowBytes))");
+                streamWriter.WriteLine("\t\t\tusing (BinaryReader reader = new BinaryReader(memoryStream))");
+                streamWriter.WriteLine("\t\t\t{");
+                streamWriter.WriteLine("\t\t\t\t try");
+                streamWriter.WriteLine("\t\t\t\t {");
                 foreach (var columnInfo in excelDataTable.GetColumnInfos(ColumnBelong.Client))
                 {
                     IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
-                    streamWriter.WriteLine($"            {columnInfo.Name} = {parser.ReadFromBinaryReaderExpression()} ;" );
-                }
-                streamWriter.WriteLine( "        }");
-                // 主键函数
-                ColumnInfo pkInfo = excelDataTable.GetPrimaryColumnInfo();
-                streamWriter.WriteLine( "        public override int GetPk()");
-                streamWriter.WriteLine( "        {");
-                if (pkInfo == null)
-                {
-                    streamWriter.WriteLine($"            return 0;");    
-                }
-                else
-                {
-                    streamWriter.WriteLine($"            return {pkInfo.Name};");
-                }
-                streamWriter.WriteLine( "        }");
-                streamWriter.WriteLine("    }");
+                    if ("Id".Equals(columnInfo.Name))
+                    {
+                        streamWriter.WriteLine($"\t\t\t\t\tm_Id = {parser.ReadFromBinaryReaderExpression()} ;" );
+                    }
+                    else
+                    {
+                        streamWriter.WriteLine($"\t\t\t\t\t {StringUtils.ToCamel(columnInfo.Name)} = {parser.ReadFromBinaryReaderExpression()} ;" );    
+                    }
+                }streamWriter.WriteLine("\t\t\t\t\t return true;");
+                streamWriter.WriteLine("\t\t\t\t }");
+                streamWriter.WriteLine("\t\t\t\t catch (Exception e)");
+                streamWriter.WriteLine("\t\t\t\t {");
+                streamWriter.WriteLine("\t\t\t\t\t Console.WriteLine(e);");
+                streamWriter.WriteLine("\t\t\t\t\t return false;");
+                streamWriter.WriteLine("\t\t\t\t }");
+                streamWriter.WriteLine( "\t\t\t}");
+                streamWriter.WriteLine("\t\t}");
+                streamWriter.WriteLine("\t}");
                 streamWriter.WriteLine("}");
             }
         }

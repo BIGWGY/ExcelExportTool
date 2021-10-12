@@ -92,7 +92,7 @@ namespace ExcelTool
         /// <returns></returns>
         public string GetBinaryExportFileName(ExcelDataTable excelDataTable)
         {
-            return _clientDataOutDirectory + Path.DirectorySeparatorChar + excelDataTable.DataFileName + ".byte";
+            return _clientDataOutDirectory + Path.DirectorySeparatorChar + excelDataTable.DataFileName + ".bytes";
         }
 
         /// <summary>
@@ -228,30 +228,37 @@ namespace ExcelTool
             try
             {
                 using (FileStream writeFile = new FileStream(GetBinaryExportFileName(dataTable), FileMode.Create))
-                using (BinaryWriter binaryWriter = new BinaryWriter(writeFile, Encoding.UTF8))
+                using (BinaryWriter tableWriter = new BinaryWriter(writeFile, Encoding.UTF8))
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
                     for (int i = 0; i < dataTable.DataRowCount; i++)
                     {
+                        long rowBeginPosition = tableWriter.BaseStream.Position;
+                        tableWriter.Write7BitEncodedInt32(0);  // 每行的长度，提前写入
+                        
+                        long beginLength = tableWriter.BaseStream.Length;
                         foreach (var columnInfo in columnInfos)
                         {
                             try
                             {
                                 IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
-                                parser.WriteToBinaryWriter(binaryWriter, columnInfo.GetRowValue(i));
+                                parser.WriteToBinaryWriter(tableWriter, columnInfo.GetRowValue(i));
                             }
                             catch (Exception e)
                             {
-                                WriteLog(LogLevel.Error,
-                                    $"表格 {dataTable.DataFileName} {columnInfo.Name} 字段, {i + 5} 行, 值 {columnInfo.GetRowValue(i)}, 导出失败: {e.Message}");
+                                WriteLog(LogLevel.Error, $"表格 {dataTable.DataFileName} {columnInfo.Name} 字段, {i + 5} 行, 值 {columnInfo.GetRowValue(i)}, 导出失败: {e.Message}");
                                 throw e;
                             }
                         }
+                        long endLength = tableWriter.BaseStream.Length;
+                        long rawEndPosition = tableWriter.BaseStream.Position;
+                        // 写入本行的长度
+                        tableWriter.BaseStream.Position = rowBeginPosition;
+                        tableWriter.Write7BitEncodedInt32((int)(endLength - beginLength));
+                        tableWriter.BaseStream.Position = rawEndPosition;
                     }
-
                     stopwatch.Stop();
-                    WriteLog(LogLevel.Information,
-                        $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 byte 文件: {dataFileName}");
+                    WriteLog(LogLevel.Information, $"线程 {Thread.CurrentThread.ManagedThreadId.ToString()}, 耗时 {stopwatch.ElapsedMilliseconds / 1000} 秒 , 导出 byte 文件: {dataFileName}");
                 }
             }
             catch (Exception e)

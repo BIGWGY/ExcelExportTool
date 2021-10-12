@@ -2,7 +2,7 @@
 
 namespace DyspaceWork
 {
-    public interface IDataRow
+    public interface IDataRow1
     {
         /// <summary>
         /// 主键。
@@ -14,6 +14,6 @@ namespace DyspaceWork
         /// 读取行数据。
         /// </summary>
         /// <param name="reader"></param>
-        void ReadRowData(BinaryReader reader);
+        void ParseDataRow(BinaryReader reader);
     }
 }

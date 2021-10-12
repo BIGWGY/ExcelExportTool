@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DyspaceWork
 {
-    public abstract class DataRow: IDataRow
+    public abstract class DyDataRow: IDataRow1
     {
         /// <summary>
         /// -1 为没有主键.
@@ -16,7 +16,7 @@ namespace DyspaceWork
             return 0;
         }
 
-        public virtual void ReadRowData(BinaryReader reader)
+        public virtual void ParseDataRow(BinaryReader reader)
         {
             throw new NotImplementedException();
         }

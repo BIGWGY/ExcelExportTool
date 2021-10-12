@@ -43,57 +43,55 @@ namespace ExcelTool
             {
                 throw new RuntimeException($"表格 {_excelDataTable.DataFileName} 配置错误!（可能有空格）");
             }
-            // 前四个字段类型行数据
+            // 服务器或者客户端字段
             IRow belongRow = mainSheet.GetRow(0);
+            // 字段类型
             IRow typeRow = mainSheet.GetRow(1);
+            // 字段注释
             IRow titleRow = mainSheet.GetRow(2);
+            // 字段名
             IRow nameRow = mainSheet.GetRow(3);
             
             bool primaryKey;
+            // 数据第一行
             short startColumn = belongRow.FirstCellNum;
+            // 数据最后一行
             short endColumn = belongRow.LastCellNum;
             
             for(short col= startColumn; col < endColumn; col++)
             {
-                primaryKey = false;
-                
                 if ("".Equals(GetCellString(belongRow.GetCell(col))) || "*".Equals(GetCellString(nameRow.GetCell(col))) || "".Equals(GetCellString(nameRow.GetCell(col)))) // 注释列
                 {
                     continue;
                 }
+
+                ColumnType columnType;
+                
+                if (col == startColumn)
+                {
+                    if (!"Id".Equals(GetCellString(nameRow.GetCell(col))))
+                    {
+                        AddDebugInfo(LogLevel.Error, "第一列必须为主键列(默认类型int32)，并且字段名为: Id");
+                        return;
+                    }
+                    primaryKey = true;
+                    columnType = ColumnType.Int32;
+                }
+                else
+                {
+                    primaryKey = false;
+                    columnType = GetColumnType(GetCellString(typeRow.GetCell(col)));
+                }
+                
+                string name = GetCellString(nameRow.GetCell(col));
+                if (Word.IsCSharpKeyWord(name))
+                {
+                    AddDebugInfo(LogLevel.Error, $"字段名不能为c#关键字: {name}");
+                    return;
+                }
+                
                 try
                 {
-                    ColumnType columnType;
-                    if ("主键".Equals(GetCellString(titleRow.GetCell(col))))
-                    {
-                        primaryKey = true;
-                        if (_excelDataTable.GetPrimaryColumnInfo() != null)
-                        {
-                            throw new Exception("重复主键!");
-                        }
-
-                        string typeString = GetColumnType(GetCellString(typeRow.GetCell(col))).toString().ToLower();
-                        if (!typeString.Contains("int"))
-                        {
-                            throw new Exception($"主键只支持 int32 类型!");
-                        }
-                        if (!typeString.Equals("int32"))
-                        {
-                            AddDebugInfo(LogLevel.Debug, $"{_excelDataTable.DataFileName}, 主键默认为 int32!");
-                        }
-                        columnType = ColumnType.Int32;
-                    }
-                    else
-                    {
-                        columnType = GetColumnType(GetCellString(typeRow.GetCell(col)));
-                    }
-
-                    string name = GetCellString(nameRow.GetCell(col));
-                    if (Word.IsCSharpKeyWord(name))
-                    {
-                        throw new Exception($"字段名不能为c#关键字: {name}");
-                    }
-                    
                     ColumnInfo columnInfo = new ColumnInfo();
                     columnInfo.ColumnIndex = col;
                     columnInfo.PrimaryKey = primaryKey;
