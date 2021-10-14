@@ -103,7 +103,7 @@ namespace ExcelTool
                               + _codeGenerateClassPrefix
                               + classname + ".cs";
             using (FileStream fileStream = new FileStream(filename, FileMode.Create))
-            using (StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
+            using (StreamWriter streamWriter = new StreamWriter(fileStream))
             {
                 streamWriter.WriteLine("using System;");
                 streamWriter.WriteLine("using System.IO;");
@@ -160,7 +160,7 @@ namespace ExcelTool
             string filename = @"C:\Users\Administrator\Desktop\code\" + classname + ".java";
             
             using (FileStream fileStream = new FileStream(filename, FileMode.Create))
-            using (StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
+            using (StreamWriter streamWriter = new StreamWriter(fileStream))
             {
                 streamWriter.WriteLine("package com.dy.shared.dataconfig.model;");
                 streamWriter.WriteLine("");
@@ -183,8 +183,9 @@ namespace ExcelTool
                 {
                     IColumnParser parser = _columnParserHelp.GetColumnParser(columnInfo.ColumnType);
                     streamWriter.WriteLine($"   /** {columnInfo.Title} */");
-                    streamWriter.WriteLine("   @FieldName");
-                    streamWriter.WriteLine($"  private {parser.ToJavaTypeString()} {columnInfo.Name};");
+                    streamWriter.WriteLine("    @FieldName");
+                    streamWriter.WriteLine($"   private {parser.ToJavaTypeString()} {columnInfo.Name};");
+                    streamWriter.WriteLine( "");    
                 }
                 streamWriter.WriteLine( "}");
             }

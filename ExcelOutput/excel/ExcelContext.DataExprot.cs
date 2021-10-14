@@ -56,9 +56,7 @@ namespace ExcelTool
                         {
                             ExportClientJson(excelDataTable.DataFileName, ColumnBelong.Client);
                         }
-                        
-                        ExportJavaCode(excelDataTable);
-                        
+
                     }, CancellationToken.None, TaskCreationOptions.PreferFairness, _scheduler)
                 );
             }

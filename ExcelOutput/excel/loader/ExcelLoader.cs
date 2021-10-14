@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text;
+using Microsoft.Extensions.Logging;
 using NPOI.SS.UserModel;
 using NPOI.Util;
 
@@ -29,12 +30,13 @@ namespace ExcelTool
             {
                 return "";
             }
-            if (cell.CellType == CellType.String)
+            if (cell.CellType != CellType.String)
             {
-                return cell.StringCellValue;
+                cell.SetCellType(CellType.String);
             }
-            cell.SetCellType(CellType.String);
-            string value = cell.StringCellValue;
+
+            byte[] bytes = Encoding.UTF8.GetBytes(cell.StringCellValue);
+            string value = Encoding.UTF8.GetString(bytes);
             return value;
         }
 

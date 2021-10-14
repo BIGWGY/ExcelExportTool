@@ -291,6 +291,7 @@
 	        this.button4.TabIndex = 48;
 	        this.button4.Text = "..";
 	        this.button4.UseVisualStyleBackColor = true;
+	        this.button4.Visible = false;
 	        this.button4.Click += new System.EventHandler(this.button4_Click);
 	        // 
 	        // ClientJsonPath
@@ -300,6 +301,7 @@
 	        this.ClientJsonPath.ReadOnly = true;
 	        this.ClientJsonPath.Size = new System.Drawing.Size(165, 21);
 	        this.ClientJsonPath.TabIndex = 47;
+	        this.ClientJsonPath.Visible = false;
 	        this.ClientJsonPath.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
 	        // 
 	        // ClientJsonCheckBox
@@ -311,6 +313,7 @@
 	        this.ClientJsonCheckBox.TabIndex = 46;
 	        this.ClientJsonCheckBox.Text = "导出单个客户端json文件";
 	        this.ClientJsonCheckBox.UseVisualStyleBackColor = true;
+	        this.ClientJsonCheckBox.Visible = false;
 	        this.ClientJsonCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
 	        // 
 	        // AutoCodeNamespace
