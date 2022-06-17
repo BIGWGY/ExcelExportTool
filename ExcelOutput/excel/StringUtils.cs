@@ -1,4 +1,5 @@
-﻿using ikvm.extensions;
+﻿using System.Text.RegularExpressions;
+using ikvm.extensions;
 using java.lang;
 
 namespace ExcelTool
@@ -29,7 +30,7 @@ namespace ExcelTool
         /// <returns></returns>
         public static string ToUnderLine(string camelClassName)
         {
-            return camelClassName.replaceAll("([A-Z])", "_$1").toLowerCase().TrimStart('_');
+            return Regex.Replace(camelClassName, "([A-Z])", "_$1").ToLower().TrimStart('_');
         }
     }
 }

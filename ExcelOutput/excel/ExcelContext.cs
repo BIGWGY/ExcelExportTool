@@ -56,7 +56,7 @@ namespace ExcelTool
         /// <summary>
         /// 导出 csharp 代码的命名空间。 
         /// </summary>
-        private string _chsarpCodeNameSpace = "DyspaceWork";
+        private string _chsarpCodeNameSpace = "LittleSurvivor";
         
         /// <summary>
         /// 生成类的前缀。

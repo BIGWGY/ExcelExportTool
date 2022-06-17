@@ -50,6 +50,7 @@ namespace ExcelTool
             IRow nameRow = mainSheet.GetRow(3);
             
             bool primaryKey;
+            ColumnInfo columnInfo;
             short startColumn = belongRow.FirstCellNum;
             short endColumn = belongRow.LastCellNum;
             
@@ -58,9 +59,8 @@ namespace ExcelTool
                 primaryKey = false;
                 
                 if ("".Equals(GetCellString(belongRow.GetCell(col))) || "*".Equals(GetCellString(nameRow.GetCell(col))) || "".Equals(GetCellString(nameRow.GetCell(col)))) // 注释列
-                {
                     continue;
-                }
+                
                 try
                 {
                     ColumnType columnType;
@@ -94,7 +94,7 @@ namespace ExcelTool
                         throw new Exception($"字段名不能为c#关键字: {name}");
                     }
                     
-                    ColumnInfo columnInfo = new ColumnInfo();
+                    columnInfo = new ColumnInfo();
                     columnInfo.ColumnIndex = col;
                     columnInfo.PrimaryKey = primaryKey;
                     columnInfo.ColumnType = columnType;
@@ -107,6 +107,12 @@ namespace ExcelTool
                 {
                     AddDebugInfo(LogLevel.Error, $"表格 {_excelDataTable.DataFileName}, 解析错误: {e.Message}");
                 }
+            }
+
+            columnInfo = _excelDataTable.GetPrimaryColumnInfo();
+            if (columnInfo == null)
+            {
+                throw new Exception($"每个表必须有一个主键: {_excelDataTable.DataFileName}");
             }
         }
 

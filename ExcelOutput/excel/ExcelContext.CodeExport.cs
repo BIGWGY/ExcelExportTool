@@ -63,7 +63,7 @@ namespace ExcelTool
         public void ExportTestCode()
         {
             WriteLog(LogLevel.Debug, "开始导出测试代码");
-            string classname = "StaticDataLoaderTest";
+            string classname = "DataTableTest";
             string filename = _csharpTableCodeOutDirectory
                               + Path.DirectorySeparatorChar 
                               + classname + ".cs";
@@ -81,7 +81,7 @@ namespace ExcelTool
                 streamWriter.WriteLine("          {");
                 foreach (var table in _excelDataTables.Values)
                 {
-                    streamWriter.WriteLine($"                StaticDataLoader<{StringUtils.ToCamel(table.DataFileName)}>.GetList(); ");    
+                    streamWriter.WriteLine($"                DataTable<{StringUtils.ToCamel(table.DataFileName)}>.GetList(); ");    
                 }
                 streamWriter.WriteLine("          }");
                 streamWriter.WriteLine("     }");

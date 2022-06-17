@@ -86,13 +86,13 @@ namespace ExcelTool
         }
 
         /// <summary>
-        /// 导出二进制字节流。
+        /// 导出二进制字节流的文件名。
         /// </summary>
         /// <param name="excelDataTable"></param>
         /// <returns></returns>
         public string GetBinaryExportFileName(ExcelDataTable excelDataTable)
         {
-            return _clientDataOutDirectory + Path.DirectorySeparatorChar + excelDataTable.DataFileName + ".byte";
+            return _clientDataOutDirectory + Path.DirectorySeparatorChar + StringUtils.ToCamel(excelDataTable.DataFileName) + ".byte";
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace ExcelTool
         /// <returns></returns>
         public string GetJsonExportFileName(ExcelDataTable excelDataTable)
         {
-            return _serverDataOutDirectory + Path.DirectorySeparatorChar + excelDataTable.DataFileName + ".json";
+            return _serverDataOutDirectory + Path.DirectorySeparatorChar + StringUtils.ToCamel(excelDataTable.DataFileName) + ".json";
         }
         
         /// <summary>
