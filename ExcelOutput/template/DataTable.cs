@@ -7,10 +7,16 @@ using UnityEngine.Networking;
 
 namespace __NAMESPACE__
 {
-    public class DataTable<T> where T : DataRow
+    /// <summary>
+    /// 本文件通过工具生成，不要修改！通过 partial 扩展本类的功能 !!!!
+    /// </summary>
+    public partial class DataTable<T> where T : DataRow
     {
-        // protected static string _byteDataPath = @"I:\Job\ExcelOutput\ExcelOutput\bin\Debug\client";
+        /// <summary>
+        /// 二进制数据加载目录。
+        /// </summary>
         protected static string _byteDataPath = Application.streamingAssetsPath + @"\table\";
+        // protected static string _byteDataPath = @"I:\Job\ExcelOutput\ExcelOutput\bin\Debug\client";
         // private static string _byteDataPath = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "example";
 
         /// <summary>

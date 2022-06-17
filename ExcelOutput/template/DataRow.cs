@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace __NAMESPACE__
 {
+    /// <summary>
+    /// 本文件通过工具生成，不会修改！通过 partial 扩展本类的功能 !!!!
+    /// </summary>
     public abstract class DataRow: IDataRow
     {
         /// <summary>

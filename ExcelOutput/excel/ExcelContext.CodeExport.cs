@@ -112,6 +112,9 @@ namespace ExcelTool
                 streamWriter.WriteLine("");
                 streamWriter.WriteLine($"namespace {_chsarpCodeNameSpace}");
                 streamWriter.WriteLine("{");
+                streamWriter.WriteLine("     /// <summary>");
+                streamWriter.WriteLine("     /// 本文件通过工具生成，不会修改！通过 partial 扩展本类的功能 !!!!");
+                streamWriter.WriteLine("     /// </summary>");
                 streamWriter.WriteLine($"    public partial class {classname}: DataRow");
                 streamWriter.WriteLine("    {");
                 // 字段.

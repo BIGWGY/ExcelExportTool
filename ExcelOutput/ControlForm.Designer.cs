@@ -214,6 +214,8 @@
 	        // 
 	        // BinaryCheckBox
 	        // 
+	        this.BinaryCheckBox.Checked = true;
+	        this.BinaryCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 	        this.BinaryCheckBox.Location = new System.Drawing.Point(6, 20);
 	        this.BinaryCheckBox.Name = "BinaryCheckBox";
 	        this.BinaryCheckBox.Size = new System.Drawing.Size(84, 16);
