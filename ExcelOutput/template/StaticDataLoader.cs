@@ -1,20 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using ExcelTool;
+using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace __NAMESPACE__
 {
-    public class StaticDataLoader<T> where T: DataRow
+    public class StaticDataLoader<T> where T : DataRow
     {
-        private static string _byteDataPath = @"I:\Job\ExcelOutput\ExcelOutput\bin\Debug\client";
+        // protected static string _byteDataPath = @"I:\Job\ExcelOutput\ExcelOutput\bin\Debug\client";
+        protected static string _byteDataPath = Application.streamingAssetsPath + @"\table\";
         // private static string _byteDataPath = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "example";
 
         /// <summary>
         /// 获取数据.
         /// </summary>
         private static List<T> _dataList = new List<T>();
-        
+
         /// <summary>
         /// 有主键的数据才会有.
         /// </summary>
@@ -49,22 +52,77 @@ namespace __NAMESPACE__
             return _dataList;
         }
 
+        // 支持多平台的文本文件读取
+        private static byte[] GetFileBytes(string path)
+        {
+            byte[] bytes = Array.Empty<byte>();
+#if UNITY_ANDROID || UNITY_IOS
+            bytes = GetStreamingPath(path);
+#else
+            bytes = FileRead(path);
+#endif
+            return bytes;
+        }
+
+        private static byte[] GetStreamingPath(string path)
+        {
+            byte[] bytes = Array.Empty<byte>();
+            var uri = new Uri(path);
+            var request = UnityWebRequest.Get(uri);
+
+            var www = request.SendWebRequest();
+            if (request.isNetworkError || request.isNetworkError)
+            {
+#if UNITY_EDITOR
+                Debug.LogError("数据文件加载错误: " + path);
+#endif
+            }
+            else
+            {
+                while (true)
+                {
+                    if (!request.isDone) continue;
+                    bytes = request.downloadHandler.data;
+                    break;
+                }
+            }
+
+            return bytes;
+        }
+        
+        private static byte[] FileRead(string path)
+        {
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            long n = fs.Length;
+            byte[] b = new byte[n];
+            int cnt, m;
+            m = 0;
+            cnt = fs.ReadByte();
+            while (cnt != -1)
+            {
+                b[m++] = Convert.ToByte(cnt);
+                cnt = fs.ReadByte();
+            }
+
+            return b;
+        }
+        
         /// <summary>
         /// 读取二进制数据.
         /// </summary>
         public static void LoadData()
         {
-            string path = _byteDataPath + Path.DirectorySeparatorChar + StringUtils.ToUnderLine(typeof(T).Name) + ".byte";
+            string path = _byteDataPath + Path.DirectorySeparatorChar + ToUnderLine(typeof(T).Name) + ".byte";
             if (!File.Exists(path))
             {
-                Console.WriteLine("找不到数据配置文件: " + path);
+                Debug.LogError("找不到数据配置文件: " + path);
                 return;
             }
             
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
-            using (BinaryReader binaryReader = new BinaryReader(fileStream))
+            byte[] bytes = GetFileBytes(path);
+            using (MemoryStream ms = new MemoryStream(bytes))
+            using (BinaryReader binaryReader = new BinaryReader(ms))
             {
-
                 long length = binaryReader.BaseStream.Length;
                 try
                 {
@@ -75,18 +133,28 @@ namespace __NAMESPACE__
                         _dataList.Add(t);
                         if (t.GetPk() > 0)
                         {
-                            _dataDictionary.Add(t.GetPk(), t);    
+                            _dataDictionary.Add(t.GetPk(), t);
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("数据文件 {0} 读取失败: {1} " , path, e.Message);
-                    throw;
+                    Debug.LogError($"数据文件 {path} 读取失败: {e.Message} ");
+                    return;
                 }
-                
-                Console.WriteLine($"加载数据文件 {path}, 总共 {_dataList.Count} 行!");
+
+                Debug.LogError($"加载数据文件 {path}, 总共 {_dataList.Count} 行!");
             }
+        }
+        
+        /// <summary>
+        /// 驼峰转下滑线。
+        /// </summary>
+        /// <param name="camelClassName"></param>
+        /// <returns></returns>
+        public static string ToUnderLine(String camelClassName)
+        {
+            return Regex.Replace(camelClassName, "([A-Z])", "_$1").ToLower().TrimStart('_');
         }
     }
 }
